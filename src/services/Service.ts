@@ -20,6 +20,7 @@ export const buscar = async(url: string, setDados: Function, header:Object) => {
   
   export const cadastrar = async(url: string, dados: Object, setDados: Function, header: Object) => {
     const resposta = await api.post(url, dados, header)
+    console.log(JSON.stringify(resposta))
     setDados(resposta.data)
   }
   

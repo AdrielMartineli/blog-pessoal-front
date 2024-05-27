@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { BrowserRouter,Route, Routes} from 'react-router-dom'
-import Home from './paginas/home/Home'
+import FormularioPostagem from './components/postagens/formularioPostagens/FormularioPostagem'
+import ListaPostagem from './components/postagens/listaPostagens/ListaPostagem'
+import DeletarTema from './components/temas/deletarTema/DeletarTema'
+import FormularioTema from './components/temas/formularioTema/FormularioTema'
+import ListaTemas from './components/temas/listaTemas/ListaTemas'
+import { AuthProvider } from './contexts/AuthContext'
+import Cadastrar from './paginas/cadastro/cadastro'
 import Footer from './paginas/footer/Footer'
 import Header from './paginas/header/header'
+import Home from './paginas/home/Home'
 import Login from './paginas/login/login'
-import Cadastrar from './paginas/cadastro/cadastro'
-import { AuthProvider } from './contexts/AuthContext'
-import ListaTemas from './components/temas/listaTemas/ListaTemas'
-import FormularioTema from './components/temas/formularioTema/FormularioTema'
-import DeletarTema from './components/temas/deletarTema/DeletarTema'
+import DeletarPostagem from './components/postagens/deletarPostagem/DeletarPostagem'
 function App() {
   return (
     <>
@@ -28,6 +28,10 @@ function App() {
               <Route path="/cadastroTema" element={<FormularioTema />} />
               <Route path="/editarTema/:id" element={<FormularioTema />} />
               <Route path="/deletarTema/:id" element={<DeletarTema />} />
+              <Route path="/postagens" element={<ListaPostagem />} />
+              <Route path="/cadastroPostagem" element={<FormularioPostagem />} />
+              <Route path="/editarPostagem/:id" element={<FormularioPostagem />} />
+              <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
             </Routes>
           </div>
           <Footer />

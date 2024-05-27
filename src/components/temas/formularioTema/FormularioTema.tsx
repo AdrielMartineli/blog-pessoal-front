@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import Tema from '../../../models/Tema';
@@ -25,7 +25,7 @@ function FormularioTema() {
             headers: { Authorization: token },
           });
         } catch (error: any) {
-          if (error.toString().includes('403')) {
+          if (error.toString().includes('401')) {
             alert('O token expirou, favor logar novamente')
             handleLogout()
           }
@@ -63,7 +63,7 @@ function FormularioTema() {
                 })
                 alert('Tema atualizado com sucesso!');
             }catch(error:any){
-                if(error.toString().includes('403')){
+                if(error.toString().includes('401')){
                     alert('O token expirou!')
                     handleLogout()
                 }else{
@@ -78,7 +78,7 @@ function FormularioTema() {
             })
             alert('Tema cadastrado com sucesso!');
         }catch(error:any){
-            if(error.toString().includes('403')){
+            if(error.toString().includes('401')){
                 alert('O token expirou!')
                 handleLogout()
             }else{

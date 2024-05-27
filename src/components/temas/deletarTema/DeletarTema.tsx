@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Tema from '../../../models/Tema'
@@ -23,7 +23,7 @@ function DeletarTema() {
             headers: { Authorization: token },
           });
         } catch (error: any) {
-          if (error.toString().includes('403')) {
+          if (error.toString().includes('401')) {
             alert('O token expirou, favor logar novamente')
             handleLogout()
           }
@@ -50,13 +50,15 @@ function DeletarTema() {
         })
         alert('O Tema foi apagado com sucesso!')
       } catch (error: any) {
-        if (error.toString().includes('403')) {
+        if (error.toString().includes('401')) {
           alert('O token expirou, favor logar novamente')
           handleLogout()
         }else{
           alert('Erro ao excluir o Tema')
         }
       }
+      setIsLoading(false)
+      retornar()
     }
 
     function retornar(){
