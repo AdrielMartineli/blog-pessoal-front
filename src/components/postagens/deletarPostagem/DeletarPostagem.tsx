@@ -3,9 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Postagem from '../../../models/Postagem'
 import { buscar, deletar } from '../../../services/Service'
+import { toastAlerta } from '../../../utils/ToastAlerta'
 
 function DeletarPostagem() {
   const [postagem, setPostagem] = useState<Postagem>({} as Postagem)
+
+  const[isLoading, setIsLoading] = useState<boolean>(false)
 
   let navigate = useNavigate()
 
@@ -23,7 +26,7 @@ function DeletarPostagem() {
       })
     } catch (error: any) {
       if (error.toString().includes('403')) {
-        alert('O token expirou, favor logar novamente')
+        toastAlerta('O token expirou, favor logar novamente',"info")
         handleLogout()
       }
     }
@@ -31,7 +34,7 @@ function DeletarPostagem() {
 
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado')
+      toastAlerta('Você precisa estar logado',"info")
       navigate('/login')
     }
   }, [token])
@@ -47,21 +50,29 @@ function DeletarPostagem() {
   }
 
   async function deletarPostagem() {
+    setIsLoading(true)
+
     try {
-      await deletar(`/postagens/${id}`, {
-        headers: {
-          'Authorization': token
+        await deletar(`/postagens/${id}`, {
+            headers: {
+                'Authorization': token
+            }
+        })
+
+        toastAlerta('Postagem apagada com sucesso', "sucesso")
+
+    } catch (error: any) {
+        if (error.toString().includes('401')) {
+            handleLogout()
+        }else {
+            toastAlerta('Erro ao deletar a postagem.', "erro")
         }
-      })
-
-      alert('Postagem apagada com sucesso')
-
-    } catch (error) {
-      alert('Erro ao apagar a Postagem')
     }
 
+    setIsLoading(false)
     retornar()
-  }
+}
+
   return (
     <div className='container w-1/3 mx-auto'>
       <h1 className='text-4xl text-center my-4'>Deletar postagem</h1>
@@ -86,3 +97,4 @@ function DeletarPostagem() {
 }
 
 export default DeletarPostagem
+

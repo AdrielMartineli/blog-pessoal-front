@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Usuario from '../../models/Usuario';
 import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
+import { toastAlerta } from '../../utils/ToastAlerta';
 
 
 function Cadastrar() {
@@ -45,13 +46,13 @@ async function cadastrarNovoUsuario(e:FormEvent<HTMLFormElement>) {
     if(confirmaSenha === usuario.senha && usuario.senha.length >= 8){
         try{
             await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario);
-            alert('Usuario cadastrado com sucesso!');
+            toastAlerta('Usuario cadastrado com sucesso!',"sucesso");
         }catch(error){
 
-            alert('Erro ao cadastrar o usuário!')
+            toastAlerta('Erro ao cadastrar o usuário!',"erro")
         }
     }else{
-        alert("Dados estão inconsistentes! Verifique os dados do usuário.");
+        toastAlerta("Dados estão inconsistentes! Verifique os dados do usuário.","erro");
         setUsuario({...usuario, senha:''});
         setConfirmaSenha('');
     }

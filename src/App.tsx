@@ -12,15 +12,19 @@ import Header from './paginas/header/header'
 import Home from './paginas/home/Home'
 import Login from './paginas/login/login'
 import DeletarPostagem from './components/postagens/deletarPostagem/DeletarPostagem'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import Perfil from './paginas/perfil/Perfil'
 function App() {
   return (
     <>
     <AuthProvider>
+      <ToastContainer/>
     <BrowserRouter>
           <div className='min-h-[80vh]'>
             <Header></Header>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastrar" element={<Cadastrar />} />
               <Route path="/home" element={<Home />} />
@@ -32,6 +36,8 @@ function App() {
               <Route path="/cadastroPostagem" element={<FormularioPostagem />} />
               <Route path="/editarPostagem/:id" element={<FormularioPostagem />} />
               <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
+              <Route path="/perfil/" element={<Perfil />} />
+            
             </Routes>
           </div>
           <Footer />

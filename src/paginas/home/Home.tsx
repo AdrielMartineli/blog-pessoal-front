@@ -1,3 +1,4 @@
+import ListaPostagens from "../../components/postagens/listaPostagens/ListaPostagem";
 import ModalPostagem from "../../components/postagens/modalPostagens/ModalPostagem";
 
 function Home(){
@@ -23,6 +24,7 @@ function Home(){
             </div>
         </div>
        </div>
+       <ListaPostagens/>
         </>
     );
 }
