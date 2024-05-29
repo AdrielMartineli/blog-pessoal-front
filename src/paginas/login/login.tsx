@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UsuarioLogin from '../../models/UsuarioLogin';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -6,31 +6,32 @@ import { RotatingLines } from 'react-loader-spinner';
 
 
 function Login() {
-    const navigate = useNavigate()
+  
+    const navigate = useNavigate();
 
-    const {usuario,handleLogin, isLoading} = useContext(AuthContext)
+    const { usuario, handleLogin, isLoading } = useContext(AuthContext)
 
-    const [ usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
+    const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
         {} as UsuarioLogin
     )
 
-    useEffect(()=> {
-           if(usuario.token !== ''){
-            navigate("/home")
-           }
-    },[usuario])
-    function atualizarEstado(e:ChangeEvent<HTMLInputElement>){
+    useEffect(() => {
+        if (usuario.token !== "") {
+            navigate('/home')
+        }
+    }, [usuario])
+
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setUsuarioLogin({
             ...usuarioLogin,
             [e.target.name]: e.target.value
         })
     }
-    function login(e:ChangeEvent<HTMLFormElement>){
-        e.preventDefault();
+
+    function login(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault()
         handleLogin(usuarioLogin)
     }
-    console.log(JSON.stringify(usuarioLogin))
-
     return (
         <>
             
